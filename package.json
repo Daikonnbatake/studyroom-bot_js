@@ -1,0 +1,23 @@
+{
+  "name": "studyroom-bot_js-edition",
+  "version": "none",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daikonnbatake/studyroom-bot_js.git"
+  },
+  "keywords": [],
+  "author": "@_kagamaru_",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Daikonnbatake/studyroom-bot_js/issues"
+  },
+  "homepage": "https://github.com/Daikonnbatake/studyroom-bot_js#readme",
+  "dependencies": {
+    "discord.js": "^13.3.1"
+  }
+}

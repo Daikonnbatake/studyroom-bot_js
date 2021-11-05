@@ -1,2 +1,8 @@
+# .vscode はpushしない
+/.vscode
+
 # メタデータどもは push しない (情報漏洩対策)
 /meta
+
+# nodeのモジュールは push しない(クソデカファイル)
+/node_modules
