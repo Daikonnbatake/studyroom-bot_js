@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "discord.js-cogs": "^0.2.0"
+  }
+}
