@@ -2,43 +2,45 @@ const time = require('date-utils');
 
 class Log
 {
-    // メッセージ or エラー
-    static typeDict = {message: 0, error: 1};
+    type = 0;
+    error = null;
+    title = '';
+    description = '';
 
-    // コンストラクタ
-    constructor(type = 0, title = '', description = '', errorObj = Error())
-    {
-        this.type = type;
-        this.title = title;
-        this.description = description;
-        this.error = errorObj;
+    constructor (...arg)
+    {   
+        if (arg.length == 1)
+        {
+            this.type = 1;    
+            this.error = arg[0];
+        }
+
+        if (arg.length == 2)
+        {
+            this.type = 0
+            this.title = arg[0];
+            this.description = arg[1];
+        }
     }
-
-    _messagePrint(){}
-    _errorPrint(){}
 
     // Logをデバッグコンソールに表示
     print()
     {
+        const timestamp = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
         let str = '';
+        let dStrList = this.description.split('\n');
         
         if (this.type === 0)
         {
-            str += `💬 ${this.title}\n`;
-            str += `description: ${this.description}\n`;
+            str += `💬 [${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}] ${this.title}\n`;
+            for (let i of dStrList) { str += `    ${i}\n`; }
         }
 
         if (this.type === 1)
         {
-            str += `❌ ${this.error.message}\n`;
-            str += `file: ${this.error.fileName} \n`;
-            str += `line: ${this.error.lineNumber} \n`;
-            str += `description: ${this.error.message} \n`
+            str += `❌ [${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}] ${this.error.message}\n`;
+            str += `    ${this.error.message} \n`
         }
-
-        let timestamp = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
-        str += `timestamp: ${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}\n`;
-        str += '--------------------------------'
 
         console.log(str);
     }
