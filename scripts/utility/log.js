@@ -34,15 +34,15 @@ class Log
         {
             str += `💬 [${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}] ${this.title}\n`;
             for (let i of dStrList) { str += `    ${i}\n`; }
+            console.log(str);
         }
 
         if (this.type === 1)
         {
-            str += `❌ [${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}] ${this.error.message}\n`;
+            str += `❌ [${timestamp.toFormat('YYYY-MM-DD HH24:MI:SS')}] ${this.error.name}\n`;
             str += `    ${this.error.message} \n`
+            console.error(str);
         }
-
-        console.log(str);
     }
 }
 
