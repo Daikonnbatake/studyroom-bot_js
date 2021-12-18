@@ -25,7 +25,7 @@ module.exports =
     description: '引数に与えられたチャンネルをランキングに反映するかどうかを切り替える',
     args: true,
     usage: '<チャンネル名>',
-    guildOnry: true,
-    adminOnry: true,
+    guildOnly: true,
+    adminOnly: true,
     execute(message, args){func(message, args)},
 }
