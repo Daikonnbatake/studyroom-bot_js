@@ -1,26 +1,25 @@
-const DB = require('../utility/dbAccsess');
-const Log = require ('../utility/log')
+const addUserID = require('../query/addUserID');
+const addChannelID = require('../query/addChannelID');
+const addGuildID = require('../query/addGuildID');
+
+const addVoiceActivity = require('../query/addVoiceActivity');
 
 class VoiceObserver
 {
-    static VoiceIn(guild, channel, user)
+    static async VoiceIn(guild, channel, user)
     {
-        // 各種データ登録
-        DB.addUser(user);
-        DB.addChannel(channel);
-        DB.addGuild(guild);
-
-        DB.loggingVoice(guild, channel, user, 1);
+        await addUserID(user);
+        await addChannelID(channel);
+        await addGuildID(guild);
+        await addVoiceActivity(guild, channel, user, 1);
     }
 
-    static VoiceOut(guild, channel, user)
+    static async VoiceOut(guild, channel, user)
     {
-        // 各種データ登録
-        DB.addUser(user);
-        DB.addChannel(channel);
-        DB.addGuild(guild);
-
-        DB.loggingVoice(guild, channel, user, 0);
+        await addUserID(user);
+        await addChannelID(channel);
+        await addGuildID(guild);
+        await addVoiceActivity(guild, channel, user, 0);
     }
 }
 
