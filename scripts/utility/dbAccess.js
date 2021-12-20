@@ -77,8 +77,7 @@ class DBAccess
         catch(e) { this._dbErrorLogging(e); }
         finally { con.end(); }
 
-        const log = new Log('DBから切断', `通信は正常に終了しました。\n${query}の結果が返却されました。`);
-        if (ret != null) log.print();
+        // if (ret != null) new Log('DBから切断', `通信は正常に終了しました。\n${query}の結果が返却されました。`).print();
 
         return ret;
     }
