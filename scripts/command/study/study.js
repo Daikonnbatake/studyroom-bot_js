@@ -7,7 +7,7 @@ async function func(message, args)
     try
     {
         let ret = await getVoiceActivities(message.author);
-        message.channel.send(`現在の自習時間は ${TimeUtilitiy.getStudyTime(ret)} 時間です。`);
+        message.channel.send(`${TimeUtilitiy.getStudyTime(ret)}`);
     }
     catch(e)
     {
