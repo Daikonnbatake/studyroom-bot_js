@@ -2,7 +2,8 @@
 /.vscode
 
 # メタデータどもは push しない (情報漏洩対策)
-/meta
+/meta/db-conf.json
+/meta/token.txt
 
 # nodeのモジュールは push しない(クソデカファイル)
 /node_modules
