@@ -7,6 +7,7 @@
 const FS = require('fs');
 const DISCORD = require('discord.js');
 
+const confGen = require('./utility/confGen');
 const voiceObserver = require('./observer/voiceObserver.js');
 
 /* インテントのフラグたて */
@@ -98,6 +99,8 @@ CLIENT.on('voiceStateUpdate', (oldState, newState)=>
 	}
 });
 
+/* 設定ファイル生成 */
+confGen;
 
 /* 実行 */
 CLIENT.login(TOKEN);
