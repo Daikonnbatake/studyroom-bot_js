@@ -7,7 +7,6 @@ confGen();
 const FS = require('fs');
 const DISCORD = require('discord.js');
 const Log = require('./utility/log');
-
 const voiceObserver = require('./observer/voiceObserver.js');
 
 /* インテントのフラグたて */
@@ -38,11 +37,9 @@ let intentFlag = new DISCORD.Intents
 const CLIENT = new DISCORD.Client({ intents: intentFlag });
 CLIENT.commands = new DISCORD.Collection();
 
-/* 設定ファイル読み込み */
-const TOKEN	 = FS.readFileSync('./meta/token.txt', 'utf-8');
-
 /* 各種定数 */
 const cwd = process.cwd();
+const TOKEN	 = JSON.parse(FS.readFileSync(cwd + '/meta/token.json')).token;
 const commandPrefix = FS.readFileSync(cwd + '/meta/prefix.txt');
 const commandFolders = FS.readdirSync(cwd + '/scripts/command');
 
