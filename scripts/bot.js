@@ -43,7 +43,7 @@ const TOKEN	 = FS.readFileSync('./meta/token.txt', 'utf-8');
 
 /* 各種定数 */
 const cwd = process.cwd();
-const commandPrefix = 'dev';
+const commandPrefix = FS.readFileSync(cwd + '/meta/prefix.txt');
 const commandFolders = FS.readdirSync(cwd + '/scripts/command');
 
 /* コマンドを読み込む */

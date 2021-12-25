@@ -16,6 +16,12 @@ const ex = function confGen()
     {
         fs.writeFileSync(`${cwd}/meta/token.txt`, '[ここにbotのtokenを張る]');
     }
+
+    // prefixの設定ファイルを生成
+    if (!fs.existsSync(`${cwd}/meta/prefix.txt`))
+    {
+        fs.writeFileSync(`${cwd}/meta/prefix.txt`, 'srb');
+    }
 }
 
 module.exports = ex;
