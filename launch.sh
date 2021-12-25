@@ -6,4 +6,4 @@
 cd /srb2
 npm install
 
-node_modules/.bin/nodemon scripts/bot.js
+nohup node_modules/.bin/nodemon scripts/bot.js &
