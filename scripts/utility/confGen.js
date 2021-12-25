@@ -12,9 +12,15 @@ const ex = function confGen()
     }
 
     // tokenの設定ファイルを生成
-    if (!fs.existsSync(`${cwd}/meta/token.txt`))
+    if (!fs.existsSync(`${cwd}/meta/token.json`))
     {
-        fs.writeFileSync(`${cwd}/meta/token.txt`, '[ここにbotのtokenを張る]');
+        fs.writeFileSync(`${cwd}/meta/token.json`, '{"token" : "[ここにトークン]"}');
+    }
+
+    // prefixの設定ファイルを生成
+    if (!fs.existsSync(`${cwd}/meta/prefix.txt`))
+    {
+        fs.writeFileSync(`${cwd}/meta/prefix.txt`, 'srb');
     }
 
     // prefixの設定ファイルを生成
