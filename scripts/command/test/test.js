@@ -17,7 +17,6 @@ async function body(message, args)
         for (const j of i) { log += `  ${j.status} ${j.timestamp.toLocaleString('ja')}\n`}
         log += '\n'
     }
-
     
     e.setTitle('テスト送信');
     e.addField('今日の00:00:00', Time.getToday().toLocaleString('ja'), true);
