@@ -8,6 +8,7 @@ const FS = require('fs');
 const DISCORD = require('discord.js');
 const Log = require('./utility/log');
 const voiceObserver = require('./observer/voiceObserver.js');
+const Embed = require('./utility/customEmbed');
 
 /* インテントのフラグたて */
 let intentFlag = new DISCORD.Intents
@@ -44,9 +45,14 @@ const commandPrefix = FS.readFileSync(cwd + '/meta/prefix.txt');
 const commandFolders = FS.readdirSync(cwd + '/scripts/command');
 
 /* コマンドを読み込む */
-for (const folder of commandFolders) {
+for (const folder of commandFolders)
+{
+	// template.js は無視
+	if (folder.slice(folder.length-3) === '.js') continue;
+	
 	const commandFiles = FS.readdirSync(`${cwd}/scripts/command/${folder}`).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
+	for (const file of commandFiles)
+	{
 		const command = require(`${cwd}/scripts/command/${folder}/${file}`);
 		CLIENT.commands.set(command.name, command);
 	}
@@ -75,7 +81,7 @@ CLIENT.on('messageCreate', message =>
 	catch(error)
 	{
 		console.error(error);
-		message.reply('エラーが発生しました。お前のせいです。あーあ。');
+		message.reply({embeds: [new Embed().error(error)]});
 	}
 });
 

@@ -1,4 +1,4 @@
-const Embed = require('../../utility/customEmbed');
+const Embed = require('../utility/customEmbed');
 
 async function body(message, args)
 {
@@ -7,16 +7,16 @@ async function body(message, args)
 
 async function func(message, args)
 {
-    try { await body(message, args); }
+    try { body(message, args); }
     catch(e) { message.channel.send({embeds: [new Embed().error(e)]}); }
 }
 
 module.exports = 
 {
-    name: 'test',
-    description: 'テスト',
-    args: false,
-    usage: '',
+    name: 'template',
+    description: 'テンプレート',
+    args: true,
+    usage: '<文字列>',
     guildOnly: true,
     adminOnly: true,
     execute(message, args) { func(message, args); }
