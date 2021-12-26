@@ -76,7 +76,6 @@ class TimeUtilitiy
             // 端の処理のために1秒を足す
             studyTimeSum[i] = (studyTimeSum[i] + 1000) / 3600000 | 0;
         }
-        return studyTimeSections;
         return studyTimeSum;
     }
 }
