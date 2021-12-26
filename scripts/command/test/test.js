@@ -1,5 +1,6 @@
 const Embed = require('../../utility/customEmbed');
 const Time = require('../../utility/timeUtility');
+
 const TextDeco = require('../../utility/textDecorator');
 const getVoiceActivities = require('../../query/getVoiceActivities');
 
