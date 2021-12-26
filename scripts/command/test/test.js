@@ -9,8 +9,14 @@ async function body(message, args)
     let e = new Embed;
     const studyTime = await getVoiceActivities(message.author);
     
-    let log = '';
-    for (const i of studyTime) { log += `${i.status} ${i.timestamp.toLocaleString('ja')}\n`; }
+    let log = '■ データベース\n';
+    for (const i of studyTime) { log += `  ${i.status} ${i.timestamp.toLocaleString('ja')}\n`; }
+    log += '\n■ 加工後\n';
+    for (const i of Time.getStudyTime(studyTime))
+    {
+        for (const j of i) { log += `  ${j.status} ${j.timestamp.toLocaleString('ja')}\n`}
+        log += '\n'
+    }
     
     e.setTitle('テスト送信');
     e.addField('今日の00:00:00', Time.getToday().toLocaleString('ja'), true);
