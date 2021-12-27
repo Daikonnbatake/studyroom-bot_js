@@ -1,13 +1,18 @@
 const getVoiceActivities = require('../../query/getVoiceActivities');
 const Log = require('../../utility/log');
 const TimeUtilitiy = require('../../utility/timeUtility');
+const ImageGen = require('../../utility/imageGen');
 
 async function func(message, args)
 {
     try
     {
-        let ret = await getVoiceActivities(message.author);
-        message.channel.send(`${TimeUtilitiy.getStudyTime(ret)}`);
+        //let ret = await getVoiceActivities(message.author);
+        //message.channel.send(`${TimeUtilitiy.getStudyTime(ret)}`);
+        
+        const user = message.author;
+        const a = ImageGen.genUserHeader(1, user.name, user.avatarURL());
+        message.channel.send(`\`\`\`${a}\`\`\``);
     }
     catch(e)
     {

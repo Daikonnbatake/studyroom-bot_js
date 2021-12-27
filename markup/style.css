@@ -1,0 +1,119 @@
+/*---- 共通 ----*/
+
+body
+{
+    /*font-family: "メイリオ";*/
+    font-weight: 700;
+    background-color: rgb(0, 255, 85);
+    white-space: nowrap;
+}
+h1 {font-size: 30px;}
+p {font-size: 15px;}
+#base { width: 490px; padding: 5px; border-radius: 15px;}
+
+.txtc1 {color: #ffffff;}
+.txtc2 {color: #b9bbbe;}
+.bgc1 {background-color: #2f3136;}
+.bgc2 {background-color: #36393f;}
+.bgc3 {background-color: #b9bbbe;}
+.block {display: block;}
+.borderRadius {border-radius: 15px;}
+.floatL {float: left;}
+.floatR {float: right;}
+.margin0 {margin: 0;}
+.margin5 {margin: 5px;}
+.margin8 {margin: 8px;}
+.padding5 {padding: 5px;}
+.txtAlignL {text-align: left;}
+.txtAlignC {text-align: center;}
+.txtAlignR {text-align: right;}
+
+.badge {width: 100px; height: 100px; clear: both;}
+
+#avatar
+{
+    float: left;
+    height: 150;
+    margin-left: -6px;
+    margin-top: -30px;
+    border-radius: 15px 0 0 15px;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to right, black, transparent);
+    mask-image: linear-gradient(to right, black, transparent);
+}
+
+/*---- ヘッダー ----*/
+#header
+{
+    overflow: hidden;
+    width: 468px;
+    height: 70px;
+    padding: 6px;
+}
+
+#headerText
+{
+    overflow: hidden;
+    float: left;
+    width: 368px;
+    margin-top: 0px;
+    margin-left: -50px;
+}
+
+/*---- バッジ ----*/
+#badge
+{
+    width: 160px;
+    height: 370px;
+}
+
+#badgeList
+{
+    overflow: hidden;
+    width: 110px;
+    margin: 0 5px;
+    padding: 0 20px;
+}
+
+/*---- 学習 ----*/
+#study
+{
+    width: 310px;
+    height: 370px;
+}
+
+#total
+{
+    width: 135px;
+    height: 65px;
+    margin: 0 5px 5px 5px;
+}
+
+#week
+{
+    width: 135px;
+    height: 65px;
+    margin: 0 5px 5px 5px;
+}
+
+#studyTime
+{
+    clear: both;
+    width: 290px;
+    height: 230px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.studyGraphDay
+{
+    width: 280px;
+    height: 33px;
+    padding: 0 5px;
+}
+
+.studyGraphBar
+{
+    height: 21px;
+    margin: 6px;
+}
