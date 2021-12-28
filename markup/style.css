@@ -4,12 +4,12 @@
 
 body
 {
-    font-family: "メイリオ";
+    font-family: sans-serif;
     font-weight: 700;
     white-space: nowrap;
 }
-h1 {font-size: 30px;}
-p {font-size: 15px;}
+h1 {font-size: 32px;}
+p {font-size: 16px;}
 #base { width: 490px; padding: 5px; border-radius: 15px;}
 
 .txtc1 {color: #ffffff;}
@@ -28,6 +28,7 @@ p {font-size: 15px;}
 .txtAlignL {text-align: left;}
 .txtAlignC {text-align: center;}
 .txtAlignR {text-align: right;}
+.date {width: 50px;}
 
 .badge {width: 100px; height: 100px; clear: both;}
 
@@ -57,7 +58,7 @@ p {font-size: 15px;}
     overflow: hidden;
     float: left;
     width: 368px;
-    margin-top: 0px;
+    margin-top: 5px;
     margin-left: -50px;
 }
 
@@ -88,6 +89,7 @@ p {font-size: 15px;}
     width: 135px;
     height: 65px;
     margin: 0 5px 5px 5px;
+    padding-top: 10px;
 }
 
 #week
@@ -95,6 +97,7 @@ p {font-size: 15px;}
     width: 135px;
     height: 65px;
     margin: 0 5px 5px 5px;
+    padding-top: 10px;
 }
 
 #studyTime

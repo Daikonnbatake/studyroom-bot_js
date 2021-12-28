@@ -78,6 +78,20 @@ class TimeUtilitiy
         }
         return studyTimeSum;
     }
+
+    static getTotalTime(study)
+    {
+        // 最後のアクティビティが入室であれば、日を跨ぐところで区切る
+        if (study[study.length-1].status === 1) study.push({status: 0, timestamp: TimeUtilitiy.getYesterday()});
+        let studyTimeSum = 0;
+        let tmp = null;
+        for (const i of study)
+        {
+            if (i.status == 1) tmp = i.timestamp;
+            else studyTimeSum += i.timestamp - tmp; 
+        }
+        return studyTimeSum / 3600000 | 0;
+    }
 }
 
 module.exports = TimeUtilitiy;
