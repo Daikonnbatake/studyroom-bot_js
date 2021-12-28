@@ -10,10 +10,13 @@ async function func(message, args)
     {
         const ret = await getVoiceActivities(message.author);
         //const total = await getTotalStudyTime(message.author);
+
         const user = message.author;
         const header = {userID: 1, userName: user.username, userIconURL: user.avatarURL(), userTitle: 'カフェイン中毒者'};
         const badge = ['_dummy', '_dummy', '_dummy'];
-        const study = {total: '00', study: TimeUtilitiy.getStudyTime(ret)};
+        let study;
+        if (0 < ret.length) study = {total: '00', study: TimeUtilitiy.getStudyTime(ret)};
+        else study = {total: '00', study: [0, 0, 0, 0, 0, 0, 0]};
 
         const a = await ImageGen.genStudyCard(header, badge, study);
         message.channel.send({files: [a]});
