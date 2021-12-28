@@ -30,7 +30,7 @@ class ImageGen
         header = header.replace('?avatarURL', userIconURL);
         header = header.replace('?userName', userName);
         header = header.replace('?userTitle', userTitle);
-        header = header.replace('?userID', '000' + String(userID).slice(-4));
+        header = header.replace('?userID', String(header.userID).padStart(4, '0'));
 
         // baseにheaderとスタイルシートを埋め込む
         base = base.replace('/*style*/', style);
@@ -60,7 +60,7 @@ class ImageGen
         headerHtml = headerHtml.replace('?avatarURL', header.userIconURL);
         headerHtml = headerHtml.replace('?userName', header.userName);
         headerHtml = headerHtml.replace('?userTitle', header.userTitle);
-        headerHtml = headerHtml.replace('?userID', '000' + String(header.userID).slice(-4));
+        headerHtml = headerHtml.replace('?userID', String(header.userID).padStart(4, '0'));
 
         // バッジに値を埋め込む
         badgeHtml = badgeHtml.replace('?badge1', `${ImageGen.cwd}/images/badges/${badge[0]}.png`);
