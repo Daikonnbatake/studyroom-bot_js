@@ -8,3 +8,7 @@
 
 # nodeのモジュールは push しない(クソデカファイル)
 /node_modules
+
+
+# 一時ディレクトリは push しない
+/tmp

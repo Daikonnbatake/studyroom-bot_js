@@ -1,13 +1,22 @@
 const getVoiceActivities = require('../../query/getVoiceActivities');
+const getTotalStudyTime = require('../../query/getTotalStudyTime');
 const Log = require('../../utility/log');
 const TimeUtilitiy = require('../../utility/timeUtility');
+const ImageGen = require('../../utility/imageGen');
 
 async function func(message, args)
 {
     try
     {
-        let ret = await getVoiceActivities(message.author);
-        message.channel.send(`${TimeUtilitiy.getStudyTime(ret)}`);
+        const ret = await getVoiceActivities(message.author);
+        //const total = await getTotalStudyTime(message.author);
+        const user = message.author;
+        const header = {userID: 1, userName: user.username, userIconURL: user.avatarURL(), userTitle: 'カフェイン中毒者'};
+        const badge = ['_dummy', '_dummy', '_dummy'];
+        const study = {total: '00', study: TimeUtilitiy.getStudyTime(ret)};
+
+        const a = await ImageGen.genStudyCard(header, badge, study);
+        message.channel.send({files: [a]});
     }
     catch(e)
     {

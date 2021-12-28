@@ -3,6 +3,10 @@
 const confGen = require('./utility/confGen.js');
 confGen();
 
+/* 存在しない場合tmpディレクトリを生成 */
+const dirGen = require('./utility/dirGen');
+dirGen();
+
 /* インポート周り */
 const FS = require('fs');
 const DISCORD = require('discord.js');
@@ -89,21 +93,25 @@ CLIENT.on('messageCreate', message =>
 
 CLIENT.on('voiceStateUpdate', async (oldState, newState)=>
 {
-	let user = oldState.member.user;
-	let newCh = newState.channel;
-	let oldCh = oldState.channel;
-
-	// 入室
-	if((oldState.channelId === null) && (newState.channelId != null)) await voiceObserver.VoiceIn(newCh.guild, newCh, user);
-
-	// 退室
-	if((oldState.channelId != null) && (newState.channelId === null)) await voiceObserver.VoiceOut(oldCh.guild, oldCh, user);
-
-	// 移動
-	if ((oldState.channelId != null) && (newState.channelId != null) && (oldState.channelId != newState.channelId))
+	// 本番環境のbotだけがsqlにアクティビティを送信する
+	if (commandPrefix === 'srb')
 	{
-		await voiceObserver.VoiceOut(oldCh.guild, oldCh, user);
-		await voiceObserver.VoiceIn(newCh.guild, newCh, user);
+		let user = oldState.member.user;
+		let newCh = newState.channel;
+		let oldCh = oldState.channel;
+	
+		// 入室
+		if((oldState.channelId === null) && (newState.channelId != null)) await voiceObserver.VoiceIn(newCh.guild, newCh, user);
+	
+		// 退室
+		if((oldState.channelId != null) && (newState.channelId === null)) await voiceObserver.VoiceOut(oldCh.guild, oldCh, user);
+	
+		// 移動
+		if ((oldState.channelId != null) && (newState.channelId != null) && (oldState.channelId != newState.channelId))
+		{
+			await voiceObserver.VoiceOut(oldCh.guild, oldCh, user);
+			await voiceObserver.VoiceIn(newCh.guild, newCh, user);
+	}
 	}
 });
 
