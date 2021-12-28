@@ -3,6 +3,10 @@
 const confGen = require('./utility/confGen.js');
 confGen();
 
+/* 存在しない場合tmpディレクトリを生成 */
+const dirGen = require('./utility/dirGen');
+dirGen();
+
 /* インポート周り */
 const FS = require('fs');
 const DISCORD = require('discord.js');

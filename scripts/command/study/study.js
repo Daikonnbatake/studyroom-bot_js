@@ -11,7 +11,7 @@ async function func(message, args)
         //message.channel.send(`${TimeUtilitiy.getStudyTime(ret)}`);
         
         const user = message.author;
-        const a = ImageGen.genUserHeader(1, user.name, user.avatarURL());
+        const a = await ImageGen.genUserHeader(1, user.username, user.avatarURL());
         message.channel.send(`\`\`\`${a}\`\`\``);
     }
     catch(e)

@@ -1,10 +1,11 @@
 /*---- 共通 ----*/
 
+*{margin: 0;}
+
 body
 {
-    /*font-family: "メイリオ";*/
+    font-family: "メイリオ";
     font-weight: 700;
-    background-color: rgb(0, 255, 85);
     white-space: nowrap;
 }
 h1 {font-size: 30px;}

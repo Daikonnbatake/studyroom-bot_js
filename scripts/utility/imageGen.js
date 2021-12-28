@@ -21,11 +21,14 @@ class ImageGen
         base = base.replace('/*style*/', style);
         base = base.replace('<!--header-->', header);
 
+        // 一時的にhtmlとして保存
+        fs.writeFileSync(`${ImageGen.cwd}/tmp/studyCards/${userID}.html`, base);
+
         // 画像に変換してpathを返す
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({headless: true, args: ['--no-sandbox']});
         const page = await browser.newPage();
-        await page.goto('https://scratch.mit.edu');
-        await page.screenshot({path: `${ImageGen.cwd}/images/test.png`});
+        await page.goto(`file://${ImageGen.cwd}/tmp/studyCards/${userID}.html`);
+        await page.screenshot({path: `${ImageGen.cwd}/images/test.png`, clip:{x: 0, y: 0, width: 500, height: 102}, omitBackground: true});
         await browser.close();
 
         return true;
