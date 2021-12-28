@@ -9,8 +9,6 @@
 # nodeのモジュールは push しない(クソデカファイル)
 /node_modules
 
-# 画像を保存するディレクトリは push しない
-/images
 
 # 一時ディレクトリは push しない
 /tmp
