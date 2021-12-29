@@ -10,6 +10,7 @@ dirGen();
 /* インポート周り */
 const FS = require('fs');
 const DISCORD = require('discord.js');
+const cron = require('node-cron');
 const Log = require('./utility/log');
 const voiceObserver = require('./observer/voiceObserver.js');
 const Embed = require('./utility/customEmbed');
@@ -111,10 +112,20 @@ CLIENT.on('voiceStateUpdate', async (oldState, newState)=>
 		{
 			await voiceObserver.VoiceOut(oldCh.guild, oldCh, user);
 			await voiceObserver.VoiceIn(newCh.guild, newCh, user);
-	}
+		}
 	}
 });
 
+/* 1日1回各種データを集計 */
+/*
+CLIENT.on('ready', ()=>
+{
+	cron.schedule('0 0 0 * * *', async()=>
+	{
+
+	})
+})
+*/
 
 /* 実行 */
 CLIENT.login(TOKEN);

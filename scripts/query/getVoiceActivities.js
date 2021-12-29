@@ -1,7 +1,7 @@
 const db = require('../utility/dbAccess');
 const TimeUtilitiy = require('../utility/timeUtility');
 
-const ex = async function getVoiceActivities(user)
+const ex = async function getVoiceActivities(user, start=TimeUtilitiy.getOneWeekAgo(), end=TimeUtilitiy.getToday())
 {
     const ret = await db.query(
         `
@@ -26,7 +26,7 @@ const ex = async function getVoiceActivities(user)
         WHERE users.discord_user_id = ?
         ORDER BY timestamp
         `,
-        [TimeUtilitiy.getOneWeekAgo(), TimeUtilitiy.getToday(), user.id]);
+        [start, end, user.id]);
     return ret[0];
 }
 
