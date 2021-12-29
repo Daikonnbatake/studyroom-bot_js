@@ -26,11 +26,13 @@ class TimeUtilitiy
          * status は 0 なら退室、1 なら入室を表す
          */
         
+        if (list.length === 0) return [0];
+
         let day = 86400000;
         let end = list[list.length-1].timestamp;
-        let endDay = ((end / day | 0) + 1) * day;
+        let endDay = ((end / day | 0) + 1) * day -100;
         let start = list[0].timestamp;
-        const calcRange = ((end - start) / day | 0) + 1;
+        const calcRange = ((endDay - start) / day | 0) + 1;
 
 
         let studyTimeSections = Array(calcRange).fill().map(e=>([]));
