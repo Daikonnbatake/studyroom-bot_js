@@ -75,11 +75,11 @@ class ImageGen
             studyTimeSum += study.study[i];
             date.setDate(date.getDate()-1);
             studyHtml = studyHtml.replace(`?date${i}`, `${date.getMonth()+1}/${date.getDate()}`);
-            studyHtml = studyHtml.replace(`?studyTime${i}`, String(study.study[i]));
-            studyHtml = studyHtml.replace(`?studyGraphBar${i}`, String(Math.min(150, study.study[i] / 24 * 150)));
+            studyHtml = studyHtml.replace(`?studyTime${i}`, String(study.study[i] / 3600000 | 0));
+            studyHtml = studyHtml.replace(`?studyGraphBar${i}`, String(Math.min(150, (study.study[i] / 3600000 | 0) / 24 * 150)));
         }
-        studyHtml = studyHtml.replace('?7daysStudyTime', String(studyTimeSum));
-        studyHtml = studyHtml.replace('?totalStudyTime', String(study.total));
+        studyHtml = studyHtml.replace('?7daysStudyTime', String(studyTimeSum / 3600000 | 0));
+        studyHtml = studyHtml.replace('?totalStudyTime', String(study.total / 3600000 | 0));
 
         // baseに各htmlとスタイルシートを埋め込む
         base = base.replace('/*style*/', style);
