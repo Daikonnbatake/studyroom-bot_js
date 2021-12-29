@@ -1,3 +1,5 @@
+const { VoiceIn } = require("../observer/voiceObserver");
+
 class TimeUtilitiy
 {
     static month = {'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5, 'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11};
@@ -25,72 +27,62 @@ class TimeUtilitiy
          */
         
         let day = 86400000;
-        let yesterday = this.getYesterday();
-        let oneWeekAgo = this.getOneWeekAgo();
+        let end = list[list.length-1].timestamp;
+        let endDay = ((end / day | 0) + 1) * day;
+        let start = list[0].timestamp;
+        const calcRange = ((end - start) / day | 0) + 1;
 
-        let studyTimeSections = [[], [], [], [], [], [], []];
-        let studyTimeSum = [0, 0, 0, 0, 0, 0, 0];
-        let lastVoiceIn = oneWeekAgo;
 
-        // 8日以上前～7日前以内にかけてのアクティビティがあった場合、7日前の 00:00:00 に入室アクティビティを足す(エラー回避)
-        if (list[0].status === 0) studyTimeSections[6].push({status: 1, timestamp: oneWeekAgo});
+        let studyTimeSections = Array(calcRange).fill().map(e=>([]));
+        let studyTimeSum = Array(calcRange).fill(0);
 
-        // ランク更新時にVCに入っている場合、集計する区間を区切るための退室アクティビティを足す(エラー回避)
-        if (list[list.length-1].status === 1) list.push({status: 0, timestamp: yesterday});
+        // もしログが退室から始まっていた場合、日を跨いでいるのでちゃんと入室のログを端につける
+        if (list[0].status === 0) list.splice(0, 0, {status: 1, timestamp: new Date((start / day | 0) * day)});
 
-        // 秒単位の区間を日単位の区間で分割
-        for (const i of list)
+        // もしログが入室で終わっていた場合、日を跨いでいるのでちゃんと退室のログを端につける
+        if (list[list.length - 1].status === 1) list.push({status: 0, timestamp: new Date(((end / day | 0) + 1) * day - 1000)});
+
+        // ログを日ごとに分割
+        for (let i = 1; i<list.length; i+=2)
         {
-            if (i.status === 0)
-            {
-                let sections = (i.timestamp - lastVoiceIn) / day  | 0;
-                let section = (lastVoiceIn / day | 0) * day + day;
-                let index = (yesterday - lastVoiceIn) / day | 0;
+            const voiceIn = list[i-1];
+            const voiceOut = list[i];
 
-                for (let j = 0; j < sections; j++)
-                {
-                    studyTimeSections[index].push({status: 0, timestamp: new Date(section - 1000)});
-                    studyTimeSections[index-1].push({status: 1, timestamp: new Date(section)});
-                    section += day;
-                    index -= 1;
-                }
-                studyTimeSections[(yesterday - i.timestamp) / day | 0].push({status:0 , timestamp: i.timestamp});
-            }
-            if (i.status === 1)
+            // 日を跨いでいるときは適切にアクティビティを区切る
+            if ((voiceIn.timestamp / day | 0) != (voiceOut.timestamp / day | 0))
             {
-                lastVoiceIn = i.timestamp;
-                let tmp = ((yesterday - lastVoiceIn) / day) | 0;
-                studyTimeSections[(yesterday - lastVoiceIn) / day | 0].push({status:1 , timestamp: lastVoiceIn});
+                studyTimeSections[(endDay - voiceIn.timestamp) / day | 0].push(voiceIn);
+
+                for (let j = ((voiceIn.timestamp / day | 0) + 1) * day; j <= voiceOut.timestamp; j += day)
+                {
+                    const before = new Date(j - 1000);
+                    const after = new Date(j);
+                    const index = (endDay - before) / day | 0;
+                    studyTimeSections[index].push({status: 0, timestamp: before});
+                    studyTimeSections[index - 1].push({status: 1, timestamp: after});
+                }
+                studyTimeSections[(endDay - voiceOut.timestamp) / day | 0].push(voiceOut);
+            }
+            else
+            {
+                const index = (endDay - voiceIn.timestamp) / day | 0;
+                studyTimeSections[index].push(voiceIn);
+                studyTimeSections[index].push(voiceOut);
             }
         }
 
-        // 日ごとに集計
-        for (const i in studyTimeSections)
+        // 日ごとの総和を求める
+        for (let i = 0; i < studyTimeSections.length; i++)
         {
             let tmp = null;
             for (const j of studyTimeSections[i])
             {
-                if (j.status === 0) studyTimeSum[i] += j.timestamp - tmp;
                 if (j.status === 1) tmp = j.timestamp;
+                else studyTimeSum[i] += (j.timestamp - tmp + 1000) / 3600000 | 0;
             }
-            // 端の処理のために1秒を足す
-            studyTimeSum[i] = (studyTimeSum[i] + 1000) / 3600000 | 0;
         }
-        return studyTimeSum;
-    }
 
-    static getTotalTime(study)
-    {
-        // 最後のアクティビティが入室であれば、日を跨ぐところで区切る
-        if (study[study.length-1].status === 1) study.push({status: 0, timestamp: TimeUtilitiy.getYesterday()});
-        let studyTimeSum = 0;
-        let tmp = null;
-        for (const i of study)
-        {
-            if (i.status == 1) tmp = i.timestamp;
-            else studyTimeSum += i.timestamp - tmp; 
-        }
-        return studyTimeSum / 3600000 | 0;
+        return studyTimeSum;
     }
 }
 
