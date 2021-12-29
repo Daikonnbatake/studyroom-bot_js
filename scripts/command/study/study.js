@@ -10,15 +10,15 @@ async function func(message, args)
     try
     {
         const ret = await getVoiceActivities(message.author);
+        const total = await getTotalStudyTime(message.author);
 
         const userID = await getUserID(message.author);
-        //const total = await getTotalStudyTime(message.author);
 
         const user = message.author;
         const header = {userID: userID, userName: user.username, userIconURL: user.avatarURL(), userTitle: 'カフェイン中毒者'};
         const badge = ['_dummy', '_dummy', '_dummy'];
         let study;
-        if (0 < ret.length) study = {total: '00', study: TimeUtilitiy.getStudyTime(ret)};
+        if (0 < ret.length) study = {total: total, study: TimeUtilitiy.getStudyTime(ret)};
         else study = {total: '00', study: Array(7).fill(0)};
 
         for (let i = study.study.length; i < 7; i++) study.study.push(0);
