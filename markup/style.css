@@ -44,6 +44,14 @@ p {font-size: 16px;}
     mask-image: linear-gradient(to right, black, transparent);
 }
 
+#rankImg
+{
+    mix-blend-mode: lighten;
+    float: right;
+    height: 100px;
+    margin: -13px -6px 0 0;
+}
+
 /*---- ヘッダー ----*/
 #header
 {
@@ -55,11 +63,12 @@ p {font-size: 16px;}
 
 #headerText
 {
+    position: absolute;
     overflow: hidden;
     float: left;
     width: 368px;
-    margin-top: 5px;
-    margin-left: -50px;
+    margin-top: 7px;
+    margin-left: 100px;
 }
 
 /*---- バッジ ----*/
