@@ -20,7 +20,7 @@ class ImageGen
     }
 
     // header を生成
-    static async genUserHeader(userID, userName, userIconURL, userTitle='新兵')
+    static async genUserHeader(userID, userName, userIconURL, userTitle = {name: '称号無し', color: '#dddddd'})
     {
         const style = fs.readFileSync(`${ImageGen.cwd}/markup/style.css`, 'utf-8');
         let base = fs.readFileSync(`${ImageGen.cwd}/markup/base.html`, 'utf-8');
@@ -29,7 +29,7 @@ class ImageGen
         // headerに各種パラメータを埋め込む
         header = header.replace('?avatarURL', userIconURL);
         header = header.replace('?userName', userName);
-        header = header.replace('?userTitle', userTitle);
+        header = header.replace('?rankImgURL', `${process.cwd()}/images/rank/${userTitle.file}`);
         header = header.replace('?userID', String(header.userID).padStart(4, '0'));
 
         // baseにheaderとスタイルシートを埋め込む
@@ -59,7 +59,7 @@ class ImageGen
         // ヘッダーに値を埋め込む
         headerHtml = headerHtml.replace('?avatarURL', header.userIconURL);
         headerHtml = headerHtml.replace('?userName', header.userName);
-        headerHtml = headerHtml.replace('?userTitle', header.userTitle);
+        headerHtml = headerHtml.replace('?rankImgURL', `${process.cwd()}/images/rank/${header.userTitle.file}`);
         headerHtml = headerHtml.replace('?userID', String(header.userID).padStart(4, '0'));
 
         // バッジに値を埋め込む
@@ -75,11 +75,11 @@ class ImageGen
             studyTimeSum += study.study[i];
             date.setDate(date.getDate()-1);
             studyHtml = studyHtml.replace(`?date${i}`, `${date.getMonth()+1}/${date.getDate()}`);
-            studyHtml = studyHtml.replace(`?studyTime${i}`, String(study.study[i]));
-            studyHtml = studyHtml.replace(`?studyGraphBar${i}`, String(Math.min(150, study.study[i] / 24 * 150)));
+            studyHtml = studyHtml.replace(`?studyTime${i}`, String(study.study[i] / 3600000 | 0));
+            studyHtml = studyHtml.replace(`?studyGraphBar${i}`, String(Math.min(150, (study.study[i] / 3600000 | 0) / 24 * 150)));
         }
-        studyHtml = studyHtml.replace('?7daysStudyTime', String(studyTimeSum));
-        studyHtml = studyHtml.replace('?totalStudyTime', String(study.total));
+        studyHtml = studyHtml.replace('?7daysStudyTime', String(studyTimeSum / 3600000 | 0));
+        studyHtml = studyHtml.replace('?totalStudyTime', String(study.total / 3600000 | 0));
 
         // baseに各htmlとスタイルシートを埋め込む
         base = base.replace('/*style*/', style);

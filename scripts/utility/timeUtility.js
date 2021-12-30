@@ -80,7 +80,7 @@ class TimeUtilitiy
             for (const j of studyTimeSections[i])
             {
                 if (j.status === 1) tmp = j.timestamp;
-                else studyTimeSum[i] += (j.timestamp - tmp + 1000) / 3600000 | 0;
+                else studyTimeSum[i] += (j.timestamp - tmp + 1000);
             }
         }
 
