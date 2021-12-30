@@ -145,16 +145,17 @@ CLIENT.on('voiceStateUpdate', async (oldState, newState)=>
 	}
 });
 
-/* 1日1回各種データを集計 */
-/*
 CLIENT.on('ready', ()=>
 {
+	// 本番環境なら help を視聴中を設定する
+	if (commandPrefix === 'srb') CLIENT.user.setActivity(`srb help `, {type: 'WATCHING'});
+
+	// 1日1回各種データを集計
 	cron.schedule('0 0 0 * * *', async()=>
 	{
 
 	})
 })
-*/
 
 /* 実行 */
 CLIENT.login(TOKEN);
