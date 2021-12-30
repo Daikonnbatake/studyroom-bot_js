@@ -4,7 +4,7 @@
 # メタデータどもは push しない (情報漏洩対策)
 /meta/db-conf.json
 /meta/token.json
-/meta/prefix.txt
+/meta/prefix.json
 
 # nodeのモジュールは push しない(クソデカファイル)
 /node_modules

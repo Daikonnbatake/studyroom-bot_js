@@ -18,15 +18,9 @@ const ex = function confGen()
     }
 
     // prefixの設定ファイルを生成
-    if (!fs.existsSync(`${cwd}/meta/prefix.txt`))
+    if (!fs.existsSync(`${cwd}/meta/prefix.json`))
     {
-        fs.writeFileSync(`${cwd}/meta/prefix.txt`, 'srb');
-    }
-
-    // prefixの設定ファイルを生成
-    if (!fs.existsSync(`${cwd}/meta/prefix.txt`))
-    {
-        fs.writeFileSync(`${cwd}/meta/prefix.txt`, 'srb');
+        fs.writeFileSync(`${cwd}/meta/prefix.json`, '{"prefix" : "srb"}');
     }
 }
 
