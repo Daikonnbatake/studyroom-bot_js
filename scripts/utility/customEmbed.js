@@ -22,7 +22,7 @@ class Embed
     setDescription(description = '') { this.embed.setDescription(description); }
     setFooter(text = '', iconURL = '') { this.embed.setFooter(test, iconURL); }
     setImage(url = '') { this.embed.setImage(url); }
-    addField(name = 'なし', value = 'なし', inline = false) { this.embed.addField(name, value, inline); }
+    addField(name = 'なし', value = 'なし', inline = false) { this.embed.addField(textDecorator.bold(name), `\n${value}\n`, inline); }
 
     /* 拡張 */
     error(e)
