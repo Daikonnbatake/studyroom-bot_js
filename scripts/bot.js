@@ -14,6 +14,7 @@ const cron = require('node-cron');
 const Log = require('./utility/log');
 const voiceObserver = require('./observer/voiceObserver.js');
 const Embed = require('./utility/customEmbed');
+const TextDeco = require('./utility/textDecorator');
 
 /* インテントのフラグたて */
 let intentFlag = new DISCORD.Intents
@@ -74,13 +75,41 @@ CLIENT.on('messageCreate', message =>
 	const command = CLIENT.commands.get(commandName);
 	
 	// 存在しないコマンドは無視
-	if(!CLIENT.commands.has(commandName)) return message.channel.send(`そんなコマンドねぇよボケがぁぁあ!`);
+	if(!CLIENT.commands.has(commandName))
+	{
+		let e = new Embed();
+		e.setTitle('コマンドがありません。');
+		e.setDescription(TextDeco.codeblock(`コマンド: ${commandPrefix} ${commandName} は存在しません。`));
+		return message.channel.send({embeds: [e.embed]});
+	}
+	
 	// 引数が足りない場合は受け付けない
-	if (command.args && !args.length) return message.channel.send(`ﾌﾟｷﾞｬｰｯ m9｡ﾟ(ﾟ^Д^ﾟ)ﾟ｡引数足りねぇwww 出直してこい ${message.author} www`);
+	if (command.args && !args.length)
+	{
+		let e = new Embed();
+		e.setTitle('引数に不備があります。');
+		e.setDescription(TextDeco.codeblock(`コマンドを実行するために必要な引数を検知できませんでした。\nヘルプを参照してコマンドを確認してください。`));
+		return message.channel.send({embeds: [e.embed]});
+	}
+	
 	// サーバーのみ実行可能なコマンドをDMから受け取った時は受け付けない
-	if (command.guildOnly && message.channel.type === 'dm') return message.reply('DMではつかえません、なんで負けたか明日までに考えといてください。');
+	if (command.guildOnly && message.channel.type === 'dm')
+	{
+		let e = new Embed();
+		e.setTitle('DMでこのコマンドは使用できません。');
+		e.setDescription(TextDeco.codeblock(`コマンド: ${commandPrefix} ${commandName} はDMで使用することができません。\nこのbotが導入されているサーバーにてご利用ください。`))
+		return message.channel.send({embeds: [e.embed]});
+	}
+
 	// 権限を要するコマンドは管理者以外弾く
-	if (command.adminOnly && !message.guild.members.cache.find((member) => member.id === message.author.id).permissions.has('ADMINISTRATOR')) return message.reply('権限ね～よ～');
+	if (command.adminOnly && !message.guild.members.cache.find((member) => member.id === message.author.id).permissions.has('ADMINISTRATOR'))
+	{
+		let e = new Embed();
+		e.setTitle('権限がありません');
+		e.setDescription(TextDeco.codeblock(`コマンド: ${commandPrefix} ${commandName} はこのサーバーの管理者のみが使用できます。`))
+
+		return message.channel.send({embeds: [e.embed]});
+	}
 
 	try { command.execute(message, args); }
 	catch(error)

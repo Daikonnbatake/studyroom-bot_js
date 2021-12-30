@@ -3,6 +3,7 @@ const getTotalStudyTime = require('../../query/getTotalStudyTime');
 const getUserID = require('../../query/getUserID');
 const Log = require('../../utility/log');
 const TimeUtilitiy = require('../../utility/timeUtility');
+const Embed = require('../../utility/timeUtility');
 const ImageGen = require('../../utility/imageGen');
 const StudyRank = require('../../utility/studyRank');
 
@@ -13,7 +14,6 @@ async function func(message, args)
         const ret = await getVoiceActivities(message.author);
         const total = await getTotalStudyTime(message.author);
         const userID = await getUserID(message.author);
-        
         
         const user = message.author;
         const badge = ['_dummy', '_dummy', '_dummy'];
@@ -34,7 +34,8 @@ async function func(message, args)
     catch(e)
     {
         new Log(e).print();
-        message.channel.send('ちくしょうやりやがった。誰もお前を愛さない。');
+        let emb = new Embed();
+        message.channel.send({embeds: [new Embed().error(e)]});
     }
 }
 

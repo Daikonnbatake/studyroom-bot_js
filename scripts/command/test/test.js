@@ -31,7 +31,7 @@ module.exports =
 {
     name: 'test',
     description: 'テスト',
-    args: false,
+    args: true,
     usage: '',
     guildOnly: true,
     adminOnly: true,
