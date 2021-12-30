@@ -1,0 +1,43 @@
+[
+    {
+        "file": "ash.png",
+        "color": "#555555",
+        "border": 0
+    },
+
+    {
+        "file": "brown.png",
+        "color": "#917053",
+        "border": 1000
+    },
+
+    {
+        "file": "sky.png",
+        "color": "#64d0de",
+        "border": 50400000
+    },
+
+    {
+        "file": "blue.png",
+        "color": "#1971ff",
+        "border": 100800000
+    },
+
+    {
+        "file": "yellow.png",
+        "color": "#d4bc44",
+        "border": 151200000
+    },
+
+    {
+        "file": "pink.png",
+        "color": "#ed9fc2",
+        "border": 201600000
+    },
+
+    {
+        "file": "red.png",
+        "color": "#cc3535",
+        "border": 252000000
+    }
+]
