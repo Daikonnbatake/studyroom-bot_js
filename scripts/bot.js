@@ -47,7 +47,7 @@ CLIENT.commands = new DISCORD.Collection();
 /* 各種定数 */
 const cwd = process.cwd();
 const TOKEN	 = JSON.parse(FS.readFileSync(cwd + '/meta/token.json')).token;
-const commandPrefix = FS.readFileSync(cwd + '/meta/prefix.txt');
+const commandPrefix = JSON.parse(FS.readFileSync(cwd + '/meta/prefix.json','utf-8')).prefix;
 const commandFolders = FS.readdirSync(cwd + '/scripts/command');
 
 /* コマンドを読み込む */
