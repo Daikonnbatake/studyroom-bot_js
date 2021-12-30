@@ -14,7 +14,7 @@ async function body(message, args)
     e.setTitle('ヘルプ');
     
     // 引数無し
-    if (!args.length)
+    if (!args.length || name === 'help')
     {
         let commandList = '';
         for (const i of commands) commandList += TextDeco.bold(TextDeco.code(`${i[1].name}`)) + ' ';
