@@ -5,11 +5,11 @@ const ex = async function getVoiceActivities(user, start=TimeUtilitiy.getOneWeek
 {
     const ret = await db.query(
         `
-        SELECT va.status, va.timestamp
+        SELECT va.id, va.status, va.timestamp
         FROM users
         INNER JOIN
             (
-                SELECT channel_id, user_id, status, timestamp
+                SELECT *
                 FROM voice_activities
                 WHERE ? <= timestamp
                 AND timestamp < ?
@@ -24,7 +24,7 @@ const ex = async function getVoiceActivities(user, start=TimeUtilitiy.getOneWeek
             ) c
             ON va.channel_id = c.id
         WHERE users.discord_user_id = ?
-        ORDER BY timestamp
+        ORDER BY va.id
         `,
         [start, end, user.id]);
     return ret[0];
