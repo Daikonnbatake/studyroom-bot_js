@@ -70,6 +70,9 @@ CLIENT.on('messageCreate', message =>
 	// コマンド判定とBot無視
 	if (!message.content.startsWith(commandPrefix) || message.author.bot) return;
 
+	// 書き込み権限がない場所でコマンドが実行された時は無視する(権限エラーでbotが落ちるのを防ぐ)
+	if (!message.channel.permissionsFor(message.client.user).has('SEND_MESSAGES')) return;
+
 	const args = message.content.slice(commandPrefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 	const command = CLIENT.commands.get(commandName);
