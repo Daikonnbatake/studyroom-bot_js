@@ -88,7 +88,7 @@ CLIENT.on('messageCreate', message =>
 	{
 		let e = new Embed();
 		e.setTitle('引数に不備があります。');
-		e.setDescription(TextDeco.codeblock(`コマンドを実行するために必要な引数を検知できませんでした。\nヘルプを参照してコマンドを確認してください。`));
+		e.setDescription(TextDeco.codeblock(`コマンドを実行するために必要な引数を検知できませんでした。\nヘルプを参照してコマンドを確認してください。\n\n  → ${commandPrefix} help ${commandName} でヘルプを表示します。`));
 		return message.channel.send({embeds: [e.embed]});
 	}
 	
@@ -145,16 +145,17 @@ CLIENT.on('voiceStateUpdate', async (oldState, newState)=>
 	}
 });
 
-/* 1日1回各種データを集計 */
-/*
 CLIENT.on('ready', ()=>
 {
+	// 本番環境なら help を視聴中を設定する
+	if (commandPrefix === 'srb') CLIENT.user.setActivity(`srb help `, {type: 'WATCHING'});
+
+	// 1日1回各種データを集計
 	cron.schedule('0 0 0 * * *', async()=>
 	{
 
 	})
 })
-*/
 
 /* 実行 */
 CLIENT.login(TOKEN);
