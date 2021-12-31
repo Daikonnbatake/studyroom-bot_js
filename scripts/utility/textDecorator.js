@@ -6,7 +6,7 @@ class TextDecorator
     static strikethrough(value) { return `~~${value}~~`; }
     static spoiler(value) { return `||${value}||`; }
     static code(value) { return ` \`${value}\` ` }
-    static codeblock(value, highlight = '') { return `\`\`\`\n${highlight}\n${value}\n\`\`\``; }
+    static codeblock(value, highlight = '') { return `\`\`\`${highlight}\n${value}\n\`\`\``; }
     static quote(value) { return `> ${value}`; }
 }
 

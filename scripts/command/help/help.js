@@ -36,7 +36,10 @@ async function body(message, args)
     {
         e.setTitle(`ヘルプ: ${command.name}`);
         e.setDescription(command.description);
-        e.addField('■ コマンド ■', TextDeco.codeblock(`${commandPrefix} ${command.name} ${command.usage}`));
+        e.addField('■ コマンド ■', TextDeco.bold(TextDeco.codeblock(`${commandPrefix} ${command.name} ${command.usage}`)));
+        e.addField('管理者権限', TextDeco.bold(TextDeco.codeblock(command.adminOnly ? '# 必要' : '# 不要', command.adminOnly ? 'cs' : 'md')), true);
+        e.addField('DMでの使用', TextDeco.bold(TextDeco.codeblock(command.guildOnly ? '# 不可' : '# 可', command.guildOnly ? 'cs' : 'md')), true);
+        e.addField('引数無しでの実行', TextDeco.bold(TextDeco.codeblock(command.args ? '# 不可' : '# 可', command.args ? 'cs' : 'md')), true);
         e.addField('■ 詳細 ■', TextDeco.codeblock(String(command.detail)));
     }
 
@@ -55,7 +58,7 @@ module.exports =
     guildOnly: false,
     adminOnly: false,
     execute(message, args) { func(message, args); },
-    
+
     name: 'help',
     usage: '<調べたいコマンド>',
     description: 'ヘルプを表示',

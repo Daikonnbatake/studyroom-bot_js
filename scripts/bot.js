@@ -88,7 +88,7 @@ CLIENT.on('messageCreate', message =>
 	{
 		let e = new Embed();
 		e.setTitle('引数に不備があります。');
-		e.setDescription(TextDeco.codeblock(`コマンドを実行するために必要な引数を検知できませんでした。\nヘルプを参照してコマンドを確認してください。`));
+		e.setDescription(TextDeco.codeblock(`コマンドを実行するために必要な引数を検知できませんでした。\nヘルプを参照してコマンドを確認してください。\n\n  → ${commandPrefix} help ${commandName} でヘルプを表示します。`));
 		return message.channel.send({embeds: [e.embed]});
 	}
 	
