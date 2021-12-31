@@ -6,6 +6,9 @@ const getVoiceActivities = require('../../query/getVoiceActivities');
 
 async function body(message, args)
 {
+    // 開発者以外は使わせない
+    if (message.author.userName != 'Daikonn++') return;
+
     let e = new Embed;
     const studyTime = await getVoiceActivities(message.author);
     
@@ -29,11 +32,12 @@ async function func(message, args)
 
 module.exports = 
 {
-    name: 'test',
-    description: 'テスト',
     args: true,
-    usage: '',
     guildOnly: true,
     adminOnly: true,
-    execute(message, args) { func(message, args); }
+    execute(message, args) { func(message, args); },
+    
+    name: 'test',
+    usage: '',
+    description: '開発の際にテストを行うためのコマンドです。\n関係者以外は使用できません。',
 }

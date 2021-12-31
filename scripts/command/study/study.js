@@ -41,11 +41,30 @@ async function func(message, args)
 
 module.exports = 
 {
-    name: 'study',
-    description: '自習時間を可視化',
     args: false,
-    usage: '',
     guildOnly: false,
     adminOnly: false,
-    execute(client, message, args) { func(client, message, args); }
+    execute(client, message, args) { func(client, message, args); },
+    
+    name: 'study',
+    usage: '',
+    description: '自習カードを表示します。',
+    detail:
+`
+〇 情報が更新されるのはいつ？
+    → 毎日朝9時(世界標準時刻の00:00:00) に更新されます。
+
+〇 グラフの時間の合計と7daysの時間の合計が違う？
+    → 7days と total は秒単位で計算しているので、
+    　グラフ上の数値の合計とは異なる場合があります。
+
+〇 ランクの意味は？
+    → 灰筆...過去7日間の自習時間が 0 秒以下
+    → 茶筆...過去7日間の自習時間が 1 秒以上
+    → 水筆...過去7日間の自習時間が 14 時間以上
+    → 青筆...過去7日間の自習時間が 28 時間以上
+    → 黄筆...過去7日間の自習時間が 42 時間以上
+    → 桃筆...過去7日間の自習時間が 56 時間以上
+    → 赤筆...過去7日間の自習時間が 70 時間以上
+`,
 }
