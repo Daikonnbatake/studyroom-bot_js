@@ -3,7 +3,7 @@ const getTotalStudyTime = require('../../query/getTotalStudyTime');
 const getUserID = require('../../query/getUserID');
 const Log = require('../../utility/log');
 const TimeUtilitiy = require('../../utility/timeUtility');
-const Embed = require('../../utility/timeUtility');
+const Embed = require('../../utility/customEmbed');
 const ImageGen = require('../../utility/imageGen');
 const StudyRank = require('../../utility/studyRank');
 
@@ -35,7 +35,9 @@ async function func(message, args)
     {
         new Log(e).print();
         let emb = new Embed();
-        message.channel.send({embeds: [new Embed().error(e)]});
+        emb.setTitle('自習カードの生成に失敗しました');
+        emb.setDescription('どこでも良いので、このサーバー内のボイスチャットに出入りしてからもう一度お試しください。1度出入りするとBotが情報を正しく取得できるようになります。\nそれでも改善しない場合は報告をお願いいたします。');
+        message.channel.send({embeds: [emb.embed]});
     }
 }
 
