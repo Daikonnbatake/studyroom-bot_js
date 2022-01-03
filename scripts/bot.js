@@ -132,6 +132,9 @@ CLIENT.on('voiceStateUpdate', async (oldState, newState)=>
 		let user = oldState.member.user;
 		let newCh = newState.channel;
 		let oldCh = oldState.channel;
+		
+		// botは無視
+		if (user.bot) return;
 	
 		// 入室
 		if((oldState.channelId === null) && (newState.channelId != null)) await voiceObserver.VoiceIn(newCh.guild, newCh, user);
