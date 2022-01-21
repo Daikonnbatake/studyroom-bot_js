@@ -5,6 +5,7 @@
 /meta/db-conf.json
 /meta/token.json
 /meta/prefix.json
+/meta/reportCh.json
 
 # nodeのモジュールは push しない(クソデカファイル)
 /node_modules

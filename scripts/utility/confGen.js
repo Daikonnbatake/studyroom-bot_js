@@ -22,6 +22,12 @@ const ex = function confGen()
     {
         fs.writeFileSync(`${cwd}/meta/prefix.json`, '{"prefix" : "srb"}');
     }
+
+    // エラー送信先チャンネルの設定ファイルを生成
+    if (!fs.existsSync(`${cwd}/meta/reportCh.json`))
+    {
+        fs.writeFileSync(`${cwd}/meta/reportCh.json`, '{"channelID" : 0}');
+    }
 }
 
 module.exports = ex;
