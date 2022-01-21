@@ -10,6 +10,19 @@ class TimeUtilitiy
     static getYesterday() { return new Date(this.getToday() - 1000); }
     static getOneWeekAgo() { return new Date(this.getToday() - (86400000 * 7)); }
 
+    // データにエラーがあるときtrueを返す
+    static _dataCheck(list)
+    {
+        let oldState = list[0].status;
+
+        for (let i = 1; i<list.length; i++)
+        {
+            if (list[i].status == oldState) return true;
+            oldState ^= 1;
+        }
+        return false;
+    }
+
     static getStudyTime(list)
     {
         /* 
@@ -43,6 +56,9 @@ class TimeUtilitiy
 
         // もしログが入室で終わっていた場合、日を跨いでいるのでちゃんと退室のログを端につける
         if (list[list.length - 1].status === 1) list.push({status: 0, timestamp: new Date(((end / day | 0) + 1) * day - 1000)});
+
+        // もしログに不正なデータが含まれる場合は以降の処理を行わない
+        if (TimeUtilitiy._dataCheck(list)) return false;
 
         // ログを日ごとに分割
         for (let i = 1; i<list.length; i+=2)

@@ -1,6 +1,7 @@
 const getVoiceActivities = require('../../query/getVoiceActivities');
 const getTotalStudyTime = require('../../query/getTotalStudyTime');
 const getUserID = require('../../query/getUserID');
+const fs = require('fs');
 const Log = require('../../utility/log');
 const TimeUtilitiy = require('../../utility/timeUtility');
 const Embed = require('../../utility/customEmbed');
@@ -12,12 +13,32 @@ async function func(message, args)
     try
     {
         const ret = await getVoiceActivities(message.author);
-        const total = await getTotalStudyTime(message.author);
         const userID = await getUserID(message.author);
+        const studyTimeSum = TimeUtilitiy.getStudyTime(ret);
+
+        if (studyTimeSum === false)
+        {
+            let e = new Embed();
+            let f = new Embed();
+
+            e.setTitle('自習カードの生成に失敗しました');
+            e.setDescription('DB内のあなたのログ中にエラーデータを検出しました。\n管理者が対応を行うまでしばらくお待ちください。\n対応が完了すると再び自習カードが表示されるようになります。\n ※ エラーは管理者に報告されました。対応までしばらくお待ちください。(最大2日)');
+            
+            f.setTitle('DB内に不正データを検出');
+            f.setDescription(`user_id: ${userID}`);
+            
+            const chID = JSON.parse(fs.readFileSync(`${process.cwd()}/meta/reportCh.json`, 'utf-8')).channelID;
+            const reportCh = await message.client.channels.fetch(chID);
+            reportCh.send({embeds: [f.embed]});
+            message.channel.send({embeds: [e.embed]});
+            return;
+        }
+        const total = await getTotalStudyTime(message.author);
+        const study = {total: total, study: studyTimeSum};
         
         const user = message.author;
         const badge = ['_dummy', '_dummy', '_dummy'];
-        const study = {total: total, study: TimeUtilitiy.getStudyTime(ret)};
+
         
         // ランク取得
         let tmp = 0;
